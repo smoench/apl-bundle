@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="apl.event_dispatcher.class">Symfony\Component\EventDispatcher\EventDispatcher</parameter>
+        <parameter key="apl.dispatcher.class">APL\Dispatcher\Dispatcher</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="apl.event_dispatcher" class="%apl.event_dispatcher.class%"/>
+
+        <service id="apl.dispatcher" class="%apl.dispatcher.class%">
+            <argument type="service" id="apl.event_dispatcher"/>
+        </service>
+
+    </services>
+</container>
