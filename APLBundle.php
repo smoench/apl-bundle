@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace APL\Bundle;
+namespace APL\Bundle\APLBundle;
 
-use APL\Bundle\DependencyInjection\Compiler\AddCommandPass;
-use APL\Bundle\DependencyInjection\Compiler\AddEventListenerPass;
+use APL\Bundle\APLBundle\DependencyInjection\Compiler\AddEventListenerPass;
+use APL\Bundle\APLBundle\DependencyInjection\Compiler\AddUseCasePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -21,7 +21,7 @@ class APLBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new AddCommandPass());
+        $container->addCompilerPass(new AddUseCasePass());
         $container->addCompilerPass(new AddEventListenerPass());
     }
 }

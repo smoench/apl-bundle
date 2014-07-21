@@ -14,28 +14,21 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class AddEventListenerPass implements CompilerPassInterface
+class AddUseCasePass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
-        $listeners = $container->findTaggedServiceIds('apl.event_listener');
+        $commands = $container->findTaggedServiceIds('apl.use_case');
 
-        foreach ($listeners as $id => $tagAttributes) {
+        foreach ($commands as $id => $tagAttributes) {
             foreach ($tagAttributes as $attributes) {
-                $dispatcherId = isset($attributes['dispatcher']) ? $attributes['dispatcher'] : 'apl.event_dispatcher';
+                $dispatcherId = isset($attributes['dispatcher']) ? $attributes['dispatcher'] : 'apl.dispatcher';
                 $dispatcher   = $container->getDefinition($dispatcherId);
 
-                $dispatcher->addMethodCall(
-                    'addListener',
-                    array(
-                        $attributes['event'],
-                        [new Reference($id), $attributes['method']],
-                        isset($attributes['priority']) ? $attributes['priority'] : 0
-                    )
-                );
+                $dispatcher->addMethodCall('registerCommand', array($attributes['command'], new Reference($id)));
             }
         }
     }
