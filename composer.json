@@ -14,7 +14,7 @@
     ],
     "require": {
         "symfony/framework-bundle": "~2.3",
-        "smoench/apl": "dev-master"
+        "smoench/apl": "0.1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0"
@@ -24,5 +24,11 @@
             "APL\\Bundle\\APLBundle\\": ""
         }
     },
-    "target-dir": "APL/Bundle/APLBundle"
+    "target-dir": "APL/Bundle/APLBundle",
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
 }
