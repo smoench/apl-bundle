@@ -33,7 +33,7 @@ class AddEventListenerPass implements CompilerPassInterface
                     array(
                         $attributes['event'],
                         [new Reference($id), $attributes['method']],
-                        isset($attributes['priority']) ? $attributes['priority'] : 0
+                        isset($attributes['priority']) ? (int) $attributes['priority'] : 0
                     )
                 );
             }
